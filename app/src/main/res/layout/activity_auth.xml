@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.alexkaz.pictureviewer.ui.AuthActivity">
+    tools:context="com.alexkaz.pictureviewer.view.AuthActivity">
 
     <FrameLayout
         android:layout_width="match_parent"

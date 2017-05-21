@@ -5,11 +5,12 @@ import android.net.Uri;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.alexkaz.pictureviewer.ui.AuthActivity;
+import com.alexkaz.pictureviewer.view.AuthActivity;
+import com.alexkaz.pictureviewer.view.AuthView;
 
 public class MyWebViewClient extends WebViewClient {
 
-    private AuthActivity authActivity;
+    private AuthView authActivity;
     boolean authComplete = false;
 
     public MyWebViewClient(AuthActivity authActivity) {

@@ -1,4 +1,4 @@
-package com.alexkaz.pictureviewer.ui;
+package com.alexkaz.pictureviewer.view;
 
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.alexkaz.pictureviewer.R;
 import com.alexkaz.pictureviewer.auth.MyWebViewClient;
 
-public class AuthActivity extends AppCompatActivity {
+public class AuthActivity extends AppCompatActivity implements AuthView {
 
     public static final String TAG = "tag";
 
@@ -55,11 +55,24 @@ public class AuthActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void showErrorMessage() {
+        //todo impl message showing
+    }
+
     public void handleAuthCode(String code){
         Log.d(TAG,code);
         Toast.makeText(this,code,Toast.LENGTH_SHORT).show();
         showProgress();
+    }
 
+    @Override
+    public void onSuccesfull() {
+
+    }
+
+    @Override
+    public void onFail() {
 
     }
 
