@@ -1,8 +1,11 @@
 package com.alexkaz.pictureviewer;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.alexkaz.pictureviewer.ui.AuthActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,5 +22,8 @@ public class MainActivity extends AppCompatActivity {
         if (isAuthenticated){
             // todo call AuthActivity for result maybe
         }
+
+        Intent authIntent  = new Intent(this, AuthActivity.class);
+        startActivity(authIntent);
     }
 }
