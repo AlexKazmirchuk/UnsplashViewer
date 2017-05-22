@@ -21,4 +21,6 @@ public class Constants {
     public static final String GRANT_TYPE="authorization_code";
 
     public static final String OAUTH2_TOKEN_URL = "https://unsplash.com/";
+
+    public static final String API_URL = "https://api.unsplash.com/";
 }
