@@ -2,15 +2,22 @@ package com.alexkaz.pictureviewer.view;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.alexkaz.pictureviewer.R;
+import com.alexkaz.pictureviewer.model.entity.PhotoDetails;
+import com.alexkaz.pictureviewer.presenter.MainPresenter;
+import com.alexkaz.pictureviewer.presenter.MainPresenterImpl;
 import com.alexkaz.pictureviewer.utills.Constants;
+import com.alexkaz.pictureviewer.view.adapters.RecyclerAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainView {
@@ -18,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public static final int AUTH_ACTIVITY_REQ_CODE = 1;
 
     private RecyclerView mRecyclerView;
+    private RecyclerAdapter recyclerAdapter;
+    private MainPresenter mainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +35,10 @@ public class MainActivity extends AppCompatActivity implements MainView {
         checkAuthorization();
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerAdapter = new RecyclerAdapter(new ArrayList<PhotoDetails>());
+        mRecyclerView.setAdapter(recyclerAdapter);
+        mainPresenter = new MainPresenterImpl(this);
+        mainPresenter.getPhotoList();
     }
 
     private void checkAuthorization(){
@@ -57,12 +70,18 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void showPhotos(List<String> photos) {
-
+    public void showPhotos(List<PhotoDetails> photos) {
+        recyclerAdapter.setPhotos(photos);
+        recyclerAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showErrorMessage(String message) {
+        Toast.makeText(this,message,Toast.LENGTH_LONG).show();
+    }
 
+    public void loadPhotos(View view){
+        mainPresenter.getPhotoList();
+        Log.d("Tag", "LOGLOG LOG");
     }
 }

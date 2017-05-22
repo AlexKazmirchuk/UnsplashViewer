@@ -8,14 +8,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alexkaz.pictureviewer.R;
+import com.alexkaz.pictureviewer.app.MyApp;
+import com.alexkaz.pictureviewer.model.entity.PhotoDetails;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.PhotoHolder> {
 
-    private List<String> photos;
+    private List<PhotoDetails> photos;
 
-    public RecyclerAdapter(List<String> photos) {
+    public RecyclerAdapter(List<PhotoDetails> photos) {
         this.photos = photos;
     }
 
@@ -34,6 +37,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.PhotoH
     @Override
     public void onBindViewHolder(PhotoHolder holder, int position) {
         // todo fetch data from list and fill views in holder
+        PhotoDetails photoDetails = photos.get(position);
+        holder.userNameTxtView.setText(photoDetails.getUser().getFirstName() + " " + photoDetails.getUser().getLastName());
+        holder.likeAmountTxtView.setText(photoDetails.getLikes() + "");
+        Picasso.with(MyApp.getContext()).load(photoDetails.getUrls().getSmall()).into(holder.bigImgView);
+        Picasso.with(MyApp.getContext()).load(photoDetails.getUser().getProfileImage().getMedium()).into(holder.userPhotoImgView);
+    }
+
+    public List<PhotoDetails> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<PhotoDetails> photos) {
+        this.photos = photos;
     }
 
     public static class PhotoHolder extends RecyclerView.ViewHolder {
