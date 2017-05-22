@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.alexkaz.pictureviewer.R;
+import com.alexkaz.pictureviewer.utills.Constants;
 import com.alexkaz.pictureviewer.view.AuthActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,13 +19,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkAuthorization(){
-        SharedPreferences preferences = getSharedPreferences("app_prefs",MODE_PRIVATE);
-        boolean isAuthenticated = preferences.getBoolean("authenticated",false);
+        SharedPreferences preferences = getSharedPreferences(Constants.APP_PREFS,MODE_PRIVATE);
+        boolean isAuthenticated = preferences.getBoolean(Constants.AUTHENTICATED,false);
         if (!isAuthenticated){
             // todo call AuthActivity for result maybe
             Intent authIntent  = new Intent(this, AuthActivity.class);
             startActivity(authIntent);
         }
-
     }
 }
