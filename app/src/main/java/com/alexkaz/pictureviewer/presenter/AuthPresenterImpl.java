@@ -13,7 +13,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AuthPresenterImpl implements AuthPresenter, Callback<AuthResponse> {
+public class AuthPresenterImpl implements AuthPresenter {
     private AuthView view;
     private AuthService authService;
     private PrefsHelper prefsHelper;
@@ -27,27 +27,35 @@ public class AuthPresenterImpl implements AuthPresenter, Callback<AuthResponse> 
     @Override
     public void doFullAuth(String code) {
         Call<AuthResponse> tokenInfo = authService.getTokenInfo(code);
-        tokenInfo.enqueue(this);
-        // todo save token info to preferences file
-        //view.onSuccesfull();
-    }
+        tokenInfo.enqueue(new Callback<AuthResponse>() {
+            @Override
+            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                if (response.isSuccessful()){
+                    AuthResponse tokenInfo = response.body();
 
-    @Override
-    public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-        if (response.isSuccessful()){
-            String accessToken = response.body().getAccessToken();
-            Log.d("tag",accessToken);
-            Log.d("tag",response.body().getScope());
-            Log.d("tag",response.body().getTokenType());
-            Log.d("tag",response.body().getCreatedAt() + "");
-            Log.d("tag",accessToken);
-        } else {
-            Log.d("tag","Error!!!!!!!");
-        }
-    }
+                    prefsHelper.saveToken(tokenInfo.getAccessToken());
+                    prefsHelper.saveString("scope",tokenInfo.getScope());
+                    prefsHelper.saveString("tokenType",tokenInfo.getTokenType());
+                    prefsHelper.saveInt("createdAt",tokenInfo.getCreatedAt());
+                    prefsHelper.setAuthenticated(true);
 
-    @Override
-    public void onFailure(Call<AuthResponse> call, Throwable t) {
-        Log.d("tag",t.getMessage());
+                    Log.d("tag",tokenInfo.getAccessToken());
+                    Log.d("tag",tokenInfo.getScope());
+                    Log.d("tag",tokenInfo.getTokenType());
+                    Log.d("tag",tokenInfo.getCreatedAt() + "");
+
+                    view.onSuccesfull();
+                } else {
+                    view.showErrorMessage();
+                    Log.d("tag","Error!!!!!!!");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponse> call, Throwable t) {
+                Log.d("tag",t.getMessage());
+                view.onFail();
+            }
+        });
     }
 }
