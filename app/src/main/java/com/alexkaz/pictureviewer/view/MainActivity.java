@@ -79,9 +79,4 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public void showErrorMessage(String message) {
         Toast.makeText(this,message,Toast.LENGTH_LONG).show();
     }
-
-    public void loadPhotos(View view){
-        mainPresenter.getPhotoList();
-        Log.d("Tag", "LOGLOG LOG");
-    }
 }

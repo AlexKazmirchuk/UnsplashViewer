@@ -13,6 +13,7 @@ import okhttp3.Response;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Query;
 
 public class GetPhotosServiceImpl implements GetPhotosService {
 
@@ -37,6 +38,11 @@ public class GetPhotosServiceImpl implements GetPhotosService {
     @Override
     public Call<List<PhotoDetails>> getPhotos(String page,String perPage) {
         return getPhotosApi.getPhotos(page,perPage);
+    }
+
+    @Override
+    public Call<List<PhotoDetails>> getPhotos(String page, String perPage, String orderBy) {
+        return getPhotosApi.getPhotos(page,perPage,orderBy);
     }
 
     private OkHttpClient getConfiguredHttpClient(){

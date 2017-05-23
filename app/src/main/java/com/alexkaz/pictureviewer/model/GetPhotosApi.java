@@ -16,4 +16,9 @@ public interface GetPhotosApi {
     @GET("photos")
     Call<List<PhotoDetails>> getPhotos(@Query("page") String page,
                                        @Query("per_page") String perPage);
+
+    @GET("photos")
+    Call<List<PhotoDetails>> getPhotos(@Query("page") String page,
+                                       @Query("per_page") String perPage,
+                                       @Query("order_by") String orderBy);
 }
