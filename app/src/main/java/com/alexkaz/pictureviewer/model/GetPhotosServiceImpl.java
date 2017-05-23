@@ -17,6 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class GetPhotosServiceImpl implements GetPhotosService {
 
     private GetPhotosApi getPhotosApi;
+    private PrefsHelper prefsHelper;
 
     public GetPhotosServiceImpl() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -25,6 +26,7 @@ public class GetPhotosServiceImpl implements GetPhotosService {
                 .client(getConfiguredHttpClient())
                 .build();
         getPhotosApi = retrofit.create(GetPhotosApi.class);
+        prefsHelper = new PrefsHelperImpl();
     }
 
     @Override
@@ -44,7 +46,7 @@ public class GetPhotosServiceImpl implements GetPhotosService {
                     public Response intercept(Chain chain) throws IOException {
                         Request originalRequest = chain.request();
                         Request.Builder builder = originalRequest.newBuilder()
-                                .header("Authorization","Client-ID " + Constants.CLIENT_ID);
+                                .header("Authorization","Bearer " + prefsHelper.getToken());
                         Request newRequest = builder.build();
                         return chain.proceed(newRequest);
                     }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.alexkaz.pictureviewer.R;
 import com.alexkaz.pictureviewer.app.MyApp;
 import com.alexkaz.pictureviewer.model.entity.PhotoDetails;
+import com.alexkaz.pictureviewer.view.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -38,10 +39,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.PhotoH
     public void onBindViewHolder(PhotoHolder holder, int position) {
         // todo fetch data from list and fill views in holder
         PhotoDetails photoDetails = photos.get(position);
+
+        Picasso.with(MyApp.getContext()).load(photoDetails.getUser().getProfileImage().getMedium()).transform(new CircleTransform()).into(holder.userPhotoImgView);
         holder.userNameTxtView.setText(photoDetails.getUser().getFirstName() + " " + photoDetails.getUser().getLastName());
-        holder.likeAmountTxtView.setText(photoDetails.getLikes() + "");
         Picasso.with(MyApp.getContext()).load(photoDetails.getUrls().getSmall()).into(holder.bigImgView);
-        Picasso.with(MyApp.getContext()).load(photoDetails.getUser().getProfileImage().getMedium()).into(holder.userPhotoImgView);
+        holder.likeAmountTxtView.setText(photoDetails.getLikes() + "");
+        holder.likeImgView.setImageResource(photoDetails.isLikedByUser() ? R.drawable.liked_ic : R.drawable.unliked_ic);
     }
 
     public List<PhotoDetails> getPhotos() {
