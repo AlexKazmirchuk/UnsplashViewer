@@ -13,14 +13,15 @@ import com.alexkaz.pictureviewer.model.entity.PhotoDetails;
 import com.alexkaz.pictureviewer.view.CircleTransform;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.PhotoHolder> {
+public abstract class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.PhotoHolder> {
 
     private List<PhotoDetails> photos;
 
-    public RecyclerAdapter(List<PhotoDetails> photos) {
-        this.photos = photos;
+    public RecyclerAdapter() {
+        this.photos = new ArrayList<>();
     }
 
     @Override
@@ -37,8 +38,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.PhotoH
 
     @Override
     public void onBindViewHolder(PhotoHolder holder, int position) {
-        // todo fetch data from list and fill views in holder
         PhotoDetails photoDetails = photos.get(position);
+
+        holder.photoId = photoDetails.getId();
+        holder.isLikedByUser = photoDetails.isLikedByUser();
 
         Picasso.with(MyApp.getContext()).load(photoDetails.getUser().getProfileImage().getMedium()).transform(new CircleTransform()).into(holder.userPhotoImgView);
         holder.userNameTxtView.setText(photoDetails.getUser().getFirstName() + " " + photoDetails.getUser().getLastName());
@@ -46,6 +49,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.PhotoH
         holder.likeAmountTxtView.setText(photoDetails.getLikes() + "");
         holder.likeImgView.setImageResource(photoDetails.isLikedByUser() ? R.drawable.liked_ic : R.drawable.unliked_ic);
     }
+
+    public abstract void likePhoto(String photoId, int position);
+
+    public abstract void unLikePhoto(String photoId, int position);
 
     public List<PhotoDetails> getPhotos() {
         return photos;
@@ -55,7 +62,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.PhotoH
         this.photos = photos;
     }
 
-    public static class PhotoHolder extends RecyclerView.ViewHolder {
+    public class PhotoHolder extends RecyclerView.ViewHolder {
+        private String photoId;
+        private boolean isLikedByUser;
+
         private ImageView userPhotoImgView;
         private TextView userNameTxtView;
         private ImageView bigImgView;
@@ -89,7 +99,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.PhotoH
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // todo make like for photo
+                    if (isLikedByUser){
+                        unLikePhoto(photoId,getLayoutPosition());
+                    } else {
+                        likePhoto(photoId,getLayoutPosition());
+                    }
                 }
             };
         }

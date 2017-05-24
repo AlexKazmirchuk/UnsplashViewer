@@ -1,7 +1,6 @@
 package com.alexkaz.pictureviewer.model;
 
-import com.alexkaz.pictureviewer.model.entity.PhotoDetails;
-
+import com.alexkaz.pictureviewer.model.entity.LikedPhotoDetails;
 import retrofit2.Call;
 
 public class LikePhotoServiceImpl extends BaseService implements LikePhotoService {
@@ -13,12 +12,12 @@ public class LikePhotoServiceImpl extends BaseService implements LikePhotoServic
     }
 
     @Override
-    public Call<PhotoDetails> likePhoto(String id) {
+    public Call<LikedPhotoDetails> likePhoto(String id) {
         return likePhotoApi.likePhoto(id);
     }
 
     @Override
-    public Call<PhotoDetails> unlikePhoto(String id) {
+    public Call<LikedPhotoDetails> unlikePhoto(String id) {
         return likePhotoApi.unlikePhoto(id);
     }
 }

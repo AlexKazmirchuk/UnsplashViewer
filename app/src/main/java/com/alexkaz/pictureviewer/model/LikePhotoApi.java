@@ -1,6 +1,6 @@
 package com.alexkaz.pictureviewer.model;
 
-import com.alexkaz.pictureviewer.model.entity.PhotoDetails;
+import com.alexkaz.pictureviewer.model.entity.LikedPhotoDetails;
 
 import retrofit2.Call;
 import retrofit2.http.DELETE;
@@ -10,9 +10,9 @@ import retrofit2.http.Path;
 public interface LikePhotoApi {
 
     @POST("photos/{id}/like")
-    Call<PhotoDetails> likePhoto(@Path("id") String id);
+    Call<LikedPhotoDetails> likePhoto(@Path("id") String id);
 
     @DELETE("photos/{id}/like")
-    Call<PhotoDetails> unlikePhoto(@Path("id") String id);
+    Call<LikedPhotoDetails> unlikePhoto(@Path("id") String id);
 
 }

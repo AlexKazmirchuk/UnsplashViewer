@@ -2,6 +2,9 @@ package com.alexkaz.pictureviewer.presenter;
 
 import com.alexkaz.pictureviewer.model.GetPhotosService;
 import com.alexkaz.pictureviewer.model.GetPhotosServiceImpl;
+import com.alexkaz.pictureviewer.model.LikePhotoService;
+import com.alexkaz.pictureviewer.model.LikePhotoServiceImpl;
+import com.alexkaz.pictureviewer.model.entity.LikedPhotoDetails;
 import com.alexkaz.pictureviewer.model.entity.PhotoDetails;
 import com.alexkaz.pictureviewer.view.MainView;
 
@@ -15,15 +18,52 @@ public class MainPresenterImpl implements MainPresenter {
 
     private MainView mainView;
     private GetPhotosService getPhotosService;
+    private LikePhotoService likePhotoService;
 
     public MainPresenterImpl(MainView mainView) {
         this.mainView = mainView;
         getPhotosService = new GetPhotosServiceImpl();
+        likePhotoService = new LikePhotoServiceImpl();
     }
 
     @Override
     public void makeLike(String photoID) {
+        Call<LikedPhotoDetails> likedPhotoCall = likePhotoService.likePhoto(photoID);
+        likedPhotoCall.enqueue(new Callback<LikedPhotoDetails>() {
+            @Override
+            public void onResponse(Call<LikedPhotoDetails> call, Response<LikedPhotoDetails> response) {
+                if (response.isSuccessful()){
+                    mainView.updateItem(response.body().getPhotoDetails());
+                } else {
+                    mainView.showErrorMessage(response.message());
+                }
+            }
 
+            @Override
+            public void onFailure(Call<LikedPhotoDetails> call, Throwable t) {
+                mainView.showErrorMessage(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void makeUnLike(String photoID) {
+        Call<LikedPhotoDetails> unLikedPhotoCall = likePhotoService.unlikePhoto(photoID);
+        unLikedPhotoCall.enqueue(new Callback<LikedPhotoDetails>() {
+            @Override
+            public void onResponse(Call<LikedPhotoDetails> call, Response<LikedPhotoDetails> response) {
+                if (response.isSuccessful()){
+                    mainView.updateItem(response.body().getPhotoDetails());
+                } else {
+                    mainView.showErrorMessage(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LikedPhotoDetails> call, Throwable t) {
+                mainView.showErrorMessage(t.getMessage());
+            }
+        });
     }
 
     @Override

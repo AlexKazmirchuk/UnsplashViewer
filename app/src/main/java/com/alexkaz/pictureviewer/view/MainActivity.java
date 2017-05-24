@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.alexkaz.pictureviewer.R;
@@ -17,7 +15,6 @@ import com.alexkaz.pictureviewer.presenter.MainPresenterImpl;
 import com.alexkaz.pictureviewer.utills.Constants;
 import com.alexkaz.pictureviewer.view.adapters.RecyclerAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainView {
@@ -28,15 +25,14 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private RecyclerAdapter recyclerAdapter;
     private MainPresenter mainPresenter;
 
+    private int forUpdateItemPosition;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkAuthorization();
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerAdapter = new RecyclerAdapter(new ArrayList<PhotoDetails>());
-        mRecyclerView.setAdapter(recyclerAdapter);
+        configureRecycleView();
         mainPresenter = new MainPresenterImpl(this);
         mainPresenter.getPhotoList();
     }
@@ -50,6 +46,27 @@ public class MainActivity extends AppCompatActivity implements MainView {
             startActivity(authIntent);
             startActivityForResult(authIntent, AUTH_ACTIVITY_REQ_CODE);
         }
+    }
+
+    private void configureRecycleView(){
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerAdapter = new RecyclerAdapter() {
+            @Override
+            public void likePhoto(String photoId, int position) {
+                // todo call presenter method for make like
+                forUpdateItemPosition = position;
+                mainPresenter.makeLike(photoId);
+            }
+
+            @Override
+            public void unLikePhoto(String photoId, int position) {
+                // todo call presenter method for make like
+                forUpdateItemPosition = position;
+                mainPresenter.makeUnLike(photoId);
+            }
+        };
+        mRecyclerView.setAdapter(recyclerAdapter);
     }
 
     @Override
@@ -78,5 +95,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void showErrorMessage(String message) {
         Toast.makeText(this,message,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void updateItem(PhotoDetails photoDetails) {
+        recyclerAdapter.getPhotos().get(forUpdateItemPosition).setLikes(photoDetails.getLikes());
+        recyclerAdapter.getPhotos().get(forUpdateItemPosition).setLikedByUser(photoDetails.isLikedByUser());
+        recyclerAdapter.notifyDataSetChanged();
     }
 }
