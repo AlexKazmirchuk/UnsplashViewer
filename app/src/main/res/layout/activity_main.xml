@@ -7,11 +7,54 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.alexkaz.pictureviewer.view.MainActivity">
-
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+        <RadioGroup
+            android:layout_gravity="center_horizontal"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/orderByNew"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_weight="1"
+                android:text="New"
+                android:checked="true"
+                android:textColor="#ffffff"
+                android:onClick="changeListOrder"/>
+            <RadioButton
+                android:id="@+id/orderByOld"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_weight="1"
+                android:text="Old"
+                android:textColor="#ffffff"
+                android:onClick="changeListOrder"/>
+            <RadioButton
+                android:id="@+id/orderByPopular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:layout_weight="1"
+                android:text="Popular"
+                android:textColor="#ffffff"
+                android:onClick="changeListOrder"/>
+        </RadioGroup>
+    </FrameLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"/>
-
 </LinearLayout>

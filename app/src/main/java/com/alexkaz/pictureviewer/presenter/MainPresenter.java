@@ -6,4 +6,5 @@ public interface MainPresenter {
     void refreshPhotoList();
     void getPhotoList();
     void loadPage(int page, int perPage);
+    void loadPage(int page, int perPage, String orderBy);
 }

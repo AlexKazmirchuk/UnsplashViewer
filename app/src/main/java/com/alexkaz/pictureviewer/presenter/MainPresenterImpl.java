@@ -6,6 +6,7 @@ import com.alexkaz.pictureviewer.model.LikePhotoService;
 import com.alexkaz.pictureviewer.model.LikePhotoServiceImpl;
 import com.alexkaz.pictureviewer.model.entity.LikedPhotoDetails;
 import com.alexkaz.pictureviewer.model.entity.PhotoDetails;
+import com.alexkaz.pictureviewer.utills.Constants;
 import com.alexkaz.pictureviewer.view.MainView;
 
 import java.util.List;
@@ -29,27 +30,17 @@ public class MainPresenterImpl implements MainPresenter {
     @Override
     public void makeLike(String photoID) {
         Call<LikedPhotoDetails> likedPhotoCall = likePhotoService.likePhoto(photoID);
-        likedPhotoCall.enqueue(new Callback<LikedPhotoDetails>() {
-            @Override
-            public void onResponse(Call<LikedPhotoDetails> call, Response<LikedPhotoDetails> response) {
-                if (response.isSuccessful()){
-                    mainView.updateItem(response.body().getPhotoDetails());
-                } else {
-                    mainView.showErrorMessage(response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LikedPhotoDetails> call, Throwable t) {
-                mainView.showErrorMessage(t.getMessage());
-            }
-        });
+        likedPhotoCall.enqueue(getUpdateItemCallback());
     }
 
     @Override
     public void makeUnLike(String photoID) {
         Call<LikedPhotoDetails> unLikedPhotoCall = likePhotoService.unlikePhoto(photoID);
-        unLikedPhotoCall.enqueue(new Callback<LikedPhotoDetails>() {
+        unLikedPhotoCall.enqueue(getUpdateItemCallback());
+    }
+
+    private Callback<LikedPhotoDetails> getUpdateItemCallback(){
+        return new Callback<LikedPhotoDetails>() {
             @Override
             public void onResponse(Call<LikedPhotoDetails> call, Response<LikedPhotoDetails> response) {
                 if (response.isSuccessful()){
@@ -63,7 +54,7 @@ public class MainPresenterImpl implements MainPresenter {
             public void onFailure(Call<LikedPhotoDetails> call, Throwable t) {
                 mainView.showErrorMessage(t.getMessage());
             }
-        });
+        };
     }
 
     @Override
@@ -73,28 +64,34 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void getPhotoList() {
-        Call<List<PhotoDetails>> photoDetailsCall = getPhotosService.getPhotos();
-        photoDetailsCall.enqueue(new Callback<List<PhotoDetails>>() {
-            @Override
-            public void onResponse(Call<List<PhotoDetails>> call, Response<List<PhotoDetails>> response) {
-                if (response.isSuccessful()){
-                    List<PhotoDetails> photos = response.body();
-                    mainView.showPhotos(photos);
-                } else {
-                    mainView.showErrorMessage(response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<PhotoDetails>> call, Throwable t) {
-                mainView.showErrorMessage(t.getMessage());
-            }
-        });
+//        Call<List<PhotoDetails>> photoDetailsCall = getPhotosService.getPhotos();
+//        photoDetailsCall.enqueue(new Callback<List<PhotoDetails>>() {
+//            @Override
+//            public void onResponse(Call<List<PhotoDetails>> call, Response<List<PhotoDetails>> response) {
+//                if (response.isSuccessful()){
+//                    List<PhotoDetails> photos = response.body();
+//                    mainView.showPhotos(photos);
+//                } else {
+//                    mainView.showErrorMessage(response.message());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<PhotoDetails>> call, Throwable t) {
+//                mainView.showErrorMessage(t.getMessage());
+//            }
+//        });
+        loadPage(1,10);
     }
 
     @Override
     public void loadPage(int page, int perPage) {
-        Call<List<PhotoDetails>> photos = getPhotosService.getPhotos(page, perPage);
+        loadPage(page,perPage, Constants.LATEST);
+    }
+
+    @Override
+    public void loadPage(int page, int perPage, String orderBy) {
+        Call<List<PhotoDetails>> photos = getPhotosService.getPhotos(page, perPage, orderBy);
         photos.enqueue(new Callback<List<PhotoDetails>>() {
             @Override
             public void onResponse(Call<List<PhotoDetails>> call, Response<List<PhotoDetails>> response) {

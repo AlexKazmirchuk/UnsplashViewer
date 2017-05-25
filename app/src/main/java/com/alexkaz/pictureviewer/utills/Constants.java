@@ -23,4 +23,8 @@ public class Constants {
     public static final String OAUTH2_TOKEN_URL = "https://unsplash.com/";
 
     public static final String API_URL = "https://api.unsplash.com/";
+
+    public static final String LATEST = "latest";
+    public static final String OLDEST = "oldest";
+    public static final String POPULAR = "popular";
 }

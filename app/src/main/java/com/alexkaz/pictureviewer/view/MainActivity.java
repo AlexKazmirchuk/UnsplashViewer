@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.alexkaz.pictureviewer.R;
@@ -16,6 +17,7 @@ import com.alexkaz.pictureviewer.utills.Constants;
 import com.alexkaz.pictureviewer.view.adapters.RecyclerAdapter;
 import com.paginate.Paginate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainView {
@@ -30,14 +32,16 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private int pageSize = 10;
     private int forUpdateItemPosition;
     private boolean loadingInProgress;
+    private String orderBy = Constants.LATEST;
+    private int checkedRadioButtonId = R.id.orderByNew;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setElevation(0);
         checkAuthorization();
         mainPresenter = new MainPresenterImpl(this);
-        //mainPresenter.getPhotoList();
         configureRecycleView();
     }
 
@@ -114,12 +118,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void showPhotos(List<PhotoDetails> photos) {
-        recyclerAdapter.setPhotos(photos);
-        recyclerAdapter.notifyDataSetChanged();
-    }
-
-    @Override
     public void showErrorMessage(String message) {
         Toast.makeText(this,message,Toast.LENGTH_LONG).show();
     }
@@ -132,9 +130,10 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     private void loadNextPage(){
+        mainPresenter.loadPage(currentPage,pageSize,orderBy);
         currentPage++;
-        mainPresenter.loadPage(currentPage,pageSize);
         loadingInProgress = true;
+        enableRadioButtons(false);
     }
 
     @Override
@@ -142,5 +141,37 @@ public class MainActivity extends AppCompatActivity implements MainView {
         recyclerAdapter.getPhotos().addAll(photos);
         recyclerAdapter.notifyDataSetChanged();
         loadingInProgress = false;
+        enableRadioButtons(true);
+    }
+
+    public void changeListOrder(View v){
+        if (v.getId() != checkedRadioButtonId){
+            switch (v.getId()){
+                case R.id.orderByNew:
+                    Toast.makeText(this,"New clicked",Toast.LENGTH_SHORT).show();
+                    orderBy = Constants.LATEST;
+                    break;
+                case R.id.orderByOld:
+                    Toast.makeText(this,"Old clicked",Toast.LENGTH_SHORT).show();
+                    orderBy = Constants.OLDEST;
+                    break;
+                case R.id.orderByPopular:
+                    Toast.makeText(this,"Popular clicked",Toast.LENGTH_SHORT).show();
+                    orderBy = Constants.POPULAR;
+                    break;
+            }
+            currentPage = 1;
+            loadingInProgress = true;
+            recyclerAdapter.setPhotos(new ArrayList<PhotoDetails>());
+            recyclerAdapter.notifyDataSetChanged();
+            loadNextPage();
+            checkedRadioButtonId = v.getId();
+        }
+    }
+
+    private void enableRadioButtons(boolean enabled){
+        findViewById(R.id.orderByNew).setEnabled(enabled);
+        findViewById(R.id.orderByOld).setEnabled(enabled);
+        findViewById(R.id.orderByPopular).setEnabled(enabled);
     }
 }
