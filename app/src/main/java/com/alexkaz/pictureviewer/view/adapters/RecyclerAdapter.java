@@ -1,5 +1,6 @@
 package com.alexkaz.pictureviewer.view.adapters;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.alexkaz.pictureviewer.R;
 import com.alexkaz.pictureviewer.app.MyApp;
 import com.alexkaz.pictureviewer.model.entity.PhotoDetails;
 import com.alexkaz.pictureviewer.view.CircleTransform;
+import com.alexkaz.pictureviewer.view.UserInfoActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -91,6 +93,9 @@ public abstract class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapt
                 @Override
                 public void onClick(View v) {
                     // todo launch activity with full info about user
+                    Intent intent = new Intent(v.getContext(), UserInfoActivity.class);
+                    intent.putExtra("user",photos.get(getLayoutPosition()).getUser());
+                    v.getContext().startActivity(intent);
                 }
             };
         }

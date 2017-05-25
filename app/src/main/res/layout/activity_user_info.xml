@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="#e1e1e1"
+    tools:context="com.alexkaz.pictureviewer.view.UserInfoActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/user_info_bg"/>
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--add content here-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    app:cardElevation="6dp"
+                    app:cardUseCompatPadding="true">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/userName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="25dp"
+                            android:text="Some user name"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
+                        <GridLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:columnCount="3"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:rowCount="2"
+                            android:background="#ffffff">
+
+                            <TextView
+                                android:layout_height="25dp"
+                                android:layout_width="90dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:text="Likes"
+                                android:textSize="17sp"
+                                android:background="#aae7e7e7"
+                                android:layout_marginRight="2dp"
+                                android:layout_marginBottom="2dp"
+                                android:layout_column="0"
+                                android:layout_row="0"/>
+
+                            <TextView
+                                android:id="@+id/userLikesCount"
+                                android:layout_height="50dp"
+                                android:layout_width="90dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:textSize="30sp"
+                                android:text="0"
+                                android:background="#7fcaefc8"
+                                android:layout_column="0"
+                                android:layout_row="1"/>
+
+                            <TextView
+                                android:layout_height="25dp"
+                                android:layout_width="90dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:textSize="17sp"
+                                android:text="Photos"
+                                android:background="#aae7e7e7"
+                                android:layout_column="1"
+                                android:layout_row="0"/>
+
+                            <TextView
+                                android:id="@+id/userPhotosCount"
+                                android:layout_height="50dp"
+                                android:layout_width="90dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:text="0"
+                                android:textSize="30sp"
+                                android:background="#7fcaefc8"
+                                android:layout_column="1"
+                                android:layout_row="1"/>
+
+                            <TextView
+                                android:layout_height="25dp"
+                                android:layout_width="90dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:textSize="17sp"
+                                android:text="Collections"
+                                android:background="#aae7e7e7"
+                                android:layout_marginLeft="2dp"
+                                android:layout_column="2"
+                                android:layout_row="0"/>
+
+                            <TextView
+                                android:id="@+id/userCollectionsCount"
+                                android:layout_height="50dp"
+                                android:layout_width="90dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:text="0"
+                                android:textSize="30sp"
+                                android:background="#7fcaefc8"
+                                android:layout_marginLeft="2dp"
+                                android:layout_column="2"
+                                android:layout_row="1"/>
+
+                        </GridLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/userBioLabel"
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:textAlignment="textEnd"
+                                android:gravity="end"
+                                android:layout_marginLeft="10dp"
+                                android:textSize="20sp"
+                                android:textColor="#2c894b"
+                                android:text="Bio: "/>
+
+                            <TextView
+                                android:id="@+id/userBio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="20sp"
+                                android:textColor="#565656"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_toRightOf="@id/userBioLabel"
+                                android:layout_toEndOf="@id/userBioLabel"
+                                android:layout_alignTop="@id/userBioLabel"
+                                android:text="Some bio of user  ds  f s d  sd   sd  sd "/>
+
+
+                            <TextView
+                                android:id="@+id/userLocation"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="20sp"
+                                android:textColor="#565656"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:text="USA New Jursey sdsd sd  sd  sd sd sd "
+                                android:layout_below="@id/userBio"
+                                android:layout_alignLeft="@id/userBio"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"/>
+
+                            <TextView
+                                android:id="@+id/userLocationLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Location: "
+                                android:textAlignment="textEnd"
+                                android:gravity="end"
+                                android:textSize="20sp"
+                                android:textColor="#2c894b"
+                                android:layout_alignLeft="@id/userBioLabel"
+                                android:layout_alignTop="@id/userLocation"
+                                android:layout_toLeftOf="@id/userLocation"/>
+
+                            <TextView
+                                android:id="@+id/userPortfolioUrl"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="20dp"
+                                android:textColor="#565656"
+                                android:text="Some url Portfolio dfs  f  sdf sd f sdf"
+                                android:textSize="20sp"
+                                android:layout_below="@id/userLocation"
+                                android:layout_alignLeft="@id/userLocation"/>
+
+                            <TextView
+                                android:id="@+id/userPortfolioUrlLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Portfolio: "
+                                android:textAlignment="textEnd"
+                                android:gravity="end"
+                                android:textSize="20sp"
+                                android:textColor="#2c894b"
+                                android:layout_alignBaseline="@+id/userPortfolioUrl"
+                                android:layout_alignBottom="@+id/userPortfolioUrl"
+                                android:layout_toLeftOf="@+id/userPortfolioUrl"
+                                android:layout_toStartOf="@+id/userPortfolioUrl" />
+
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+            </FrameLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/bigUserPhotoImgView"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:background="@drawable/rounded_bg"
+        android:padding="4dp"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="center_horizontal"/>
+</FrameLayout>

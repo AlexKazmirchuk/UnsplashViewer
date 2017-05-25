@@ -1,10 +1,11 @@
-
 package com.alexkaz.pictureviewer.model.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ProfileImage {
+public class ProfileImage implements Parcelable {
 
     @SerializedName("small")
     @Expose
@@ -45,4 +46,35 @@ public class ProfileImage {
         this.large = large;
     }
 
+
+    protected ProfileImage(Parcel in) {
+        small = in.readString();
+        medium = in.readString();
+        large = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(small);
+        dest.writeString(medium);
+        dest.writeString(large);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<ProfileImage> CREATOR = new Parcelable.Creator<ProfileImage>() {
+        @Override
+        public ProfileImage createFromParcel(Parcel in) {
+            return new ProfileImage(in);
+        }
+
+        @Override
+        public ProfileImage[] newArray(int size) {
+            return new ProfileImage[size];
+        }
+    };
 }

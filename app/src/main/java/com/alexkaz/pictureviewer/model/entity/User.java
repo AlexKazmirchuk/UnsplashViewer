@@ -1,10 +1,11 @@
-
 package com.alexkaz.pictureviewer.model.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class User {
+public class User implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -46,7 +47,7 @@ public class User {
 
     /**
      * No args constructor for use in serialization
-     * 
+     *
      */
     public User() {
     }
@@ -147,4 +148,53 @@ public class User {
         this.profileImage = profileImage;
     }
 
+
+    protected User(Parcel in) {
+        id = in.readString();
+        username = in.readString();
+        name = in.readString();
+        firstName = in.readString();
+        lastName = in.readString();
+        portfolioUrl = in.readString();
+        bio = in.readString();
+        location = in.readString();
+        totalLikes = in.readInt();
+        totalPhotos = in.readInt();
+        totalCollections = in.readInt();
+        profileImage = (ProfileImage) in.readValue(ProfileImage.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(username);
+        dest.writeString(name);
+        dest.writeString(firstName);
+        dest.writeString(lastName);
+        dest.writeString(portfolioUrl);
+        dest.writeString(bio);
+        dest.writeString(location);
+        dest.writeInt(totalLikes);
+        dest.writeInt(totalPhotos);
+        dest.writeInt(totalCollections);
+        dest.writeValue(profileImage);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }
