@@ -8,4 +8,5 @@ public interface MainView {
     void showPhotos(List<PhotoDetails> photos);
     void showErrorMessage(String message);
     void updateItem(PhotoDetails photoDetails);
+    void showNextPage(List<PhotoDetails> photos);
 }

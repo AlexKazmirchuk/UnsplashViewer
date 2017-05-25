@@ -14,6 +14,7 @@ import com.alexkaz.pictureviewer.presenter.MainPresenter;
 import com.alexkaz.pictureviewer.presenter.MainPresenterImpl;
 import com.alexkaz.pictureviewer.utills.Constants;
 import com.alexkaz.pictureviewer.view.adapters.RecyclerAdapter;
+import com.paginate.Paginate;
 
 import java.util.List;
 
@@ -25,16 +26,19 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private RecyclerAdapter recyclerAdapter;
     private MainPresenter mainPresenter;
 
+    private int currentPage = 1;
+    private int pageSize = 10;
     private int forUpdateItemPosition;
+    private boolean loadingInProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkAuthorization();
-        configureRecycleView();
         mainPresenter = new MainPresenterImpl(this);
-        mainPresenter.getPhotoList();
+        //mainPresenter.getPhotoList();
+        configureRecycleView();
     }
 
     private void checkAuthorization(){
@@ -67,6 +71,29 @@ public class MainActivity extends AppCompatActivity implements MainView {
             }
         };
         mRecyclerView.setAdapter(recyclerAdapter);
+
+        Paginate.Callbacks callbacks = new Paginate.Callbacks() {
+            @Override
+            public void onLoadMore() {
+                loadNextPage();
+            }
+
+            @Override
+            public boolean isLoading() {
+                return loadingInProgress;
+            }
+
+            @Override
+            public boolean hasLoadedAllItems() {
+                return false;
+            }
+        };
+
+        Paginate.with(mRecyclerView,callbacks)
+                .setLoadingTriggerThreshold(2)
+                .addLoadingListItem(true)
+                .build();
+
     }
 
     @Override
@@ -102,5 +129,18 @@ public class MainActivity extends AppCompatActivity implements MainView {
         recyclerAdapter.getPhotos().get(forUpdateItemPosition).setLikes(photoDetails.getLikes());
         recyclerAdapter.getPhotos().get(forUpdateItemPosition).setLikedByUser(photoDetails.isLikedByUser());
         recyclerAdapter.notifyDataSetChanged();
+    }
+
+    private void loadNextPage(){
+        currentPage++;
+        mainPresenter.loadPage(currentPage,pageSize);
+        loadingInProgress = true;
+    }
+
+    @Override
+    public void showNextPage(List<PhotoDetails> photos) {
+        recyclerAdapter.getPhotos().addAll(photos);
+        recyclerAdapter.notifyDataSetChanged();
+        loadingInProgress = false;
     }
 }

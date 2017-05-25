@@ -91,4 +91,24 @@ public class MainPresenterImpl implements MainPresenter {
             }
         });
     }
+
+    @Override
+    public void loadPage(int page, int perPage) {
+        Call<List<PhotoDetails>> photos = getPhotosService.getPhotos(page, perPage);
+        photos.enqueue(new Callback<List<PhotoDetails>>() {
+            @Override
+            public void onResponse(Call<List<PhotoDetails>> call, Response<List<PhotoDetails>> response) {
+                if (response.isSuccessful()){
+                    mainView.showNextPage(response.body());
+                } else {
+                    mainView.showErrorMessage(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PhotoDetails>> call, Throwable t) {
+                mainView.showErrorMessage(t.getMessage());
+            }
+        });
+    }
 }

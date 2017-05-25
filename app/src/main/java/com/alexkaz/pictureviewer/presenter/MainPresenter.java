@@ -5,4 +5,5 @@ public interface MainPresenter {
     void makeUnLike(String photoID);
     void refreshPhotoList();
     void getPhotoList();
+    void loadPage(int page, int perPage);
 }

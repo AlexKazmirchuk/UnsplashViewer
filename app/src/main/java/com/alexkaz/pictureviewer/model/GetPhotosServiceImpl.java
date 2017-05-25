@@ -18,12 +18,12 @@ public class GetPhotosServiceImpl extends BaseService implements GetPhotosServic
     }
 
     @Override
-    public Call<List<PhotoDetails>> getPhotos(String page,String perPage) {
+    public Call<List<PhotoDetails>> getPhotos(Integer page,Integer perPage) {
         return getPhotosApi.getPhotos(page,perPage);
     }
 
     @Override
-    public Call<List<PhotoDetails>> getPhotos(String page, String perPage, String orderBy) {
+    public Call<List<PhotoDetails>> getPhotos(Integer page, Integer perPage, String orderBy) {
         return getPhotosApi.getPhotos(page,perPage,orderBy);
     }
 }

@@ -14,11 +14,11 @@ public interface GetPhotosApi {
     Call<List<PhotoDetails>> getPhotos();
 
     @GET("photos")
-    Call<List<PhotoDetails>> getPhotos(@Query("page") String page,
-                                       @Query("per_page") String perPage);
+    Call<List<PhotoDetails>> getPhotos(@Query("page") Integer page,
+                                       @Query("per_page") Integer perPage);
 
     @GET("photos")
-    Call<List<PhotoDetails>> getPhotos(@Query("page") String page,
-                                       @Query("per_page") String perPage,
+    Call<List<PhotoDetails>> getPhotos(@Query("page") Integer page,
+                                       @Query("per_page") Integer perPage,
                                        @Query("order_by") String orderBy);
 }
