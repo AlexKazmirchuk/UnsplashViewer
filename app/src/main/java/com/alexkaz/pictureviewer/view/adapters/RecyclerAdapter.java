@@ -46,7 +46,7 @@ public abstract class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapt
         holder.isLikedByUser = photoDetails.isLikedByUser();
 
         Picasso.with(MyApp.getContext()).load(photoDetails.getUser().getProfileImage().getMedium()).transform(new CircleTransform()).into(holder.userPhotoImgView);
-        holder.userNameTxtView.setText(photoDetails.getUser().getFirstName() + " " + photoDetails.getUser().getLastName());
+        holder.userNameTxtView.setText(photoDetails.getUser().getName());
         Picasso.with(MyApp.getContext()).load(photoDetails.getUrls().getSmall()).into(holder.bigImgView);
         holder.likeAmountTxtView.setText(photoDetails.getLikes() + "");
         holder.likeImgView.setImageResource(photoDetails.isLikedByUser() ? R.drawable.liked_ic : R.drawable.unliked_ic);

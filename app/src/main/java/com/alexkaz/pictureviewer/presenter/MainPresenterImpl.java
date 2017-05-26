@@ -58,33 +58,6 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    public void refreshPhotoList() {
-
-    }
-
-    @Override
-    public void getPhotoList() {
-//        Call<List<PhotoDetails>> photoDetailsCall = getPhotosService.getPhotos();
-//        photoDetailsCall.enqueue(new Callback<List<PhotoDetails>>() {
-//            @Override
-//            public void onResponse(Call<List<PhotoDetails>> call, Response<List<PhotoDetails>> response) {
-//                if (response.isSuccessful()){
-//                    List<PhotoDetails> photos = response.body();
-//                    mainView.showPhotos(photos);
-//                } else {
-//                    mainView.showErrorMessage(response.message());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<PhotoDetails>> call, Throwable t) {
-//                mainView.showErrorMessage(t.getMessage());
-//            }
-//        });
-        loadPage(1,10);
-    }
-
-    @Override
     public void loadPage(int page, int perPage) {
         loadPage(page,perPage, Constants.LATEST);
     }
