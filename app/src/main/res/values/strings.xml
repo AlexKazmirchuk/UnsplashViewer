@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">PictureViewer</string>
+    <string name="new_">New</string>
+    <string name="old">Old</string>
+    <string name="popular">Popular</string>
+    <string name="likes">Likes</string>
+    <string name="photos">Photos</string>
+    <string name="collections">Collections</string>
+    <string name="bio">Bio:</string>
+    <string name="location">Location:</string>
+    <string name="portfolio">Portfolio:</string>
+    <string name="auth_activity_label">Authorization</string>
 </resources>

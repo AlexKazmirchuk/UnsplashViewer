@@ -1,8 +1,10 @@
 package com.alexkaz.pictureviewer.view;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -58,6 +60,15 @@ public class UserInfoActivity extends AppCompatActivity {
 
         userBio.setText(user.getBio());
         userLocation.setText(user.getLocation());
-        userPortfolio.setText(user.getPortfolioUrl());
+        userPortfolio.setText(parseUrl(user.getPortfolioUrl()));
+    }
+
+    private String parseUrl(String url){
+        if (url == null) return "";
+        if (URLUtil.isValidUrl(url)){
+            Uri uri = Uri.parse(url);
+            return uri.getHost() + uri.getPath();
+        }
+        return "";
     }
 }

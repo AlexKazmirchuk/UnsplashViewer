@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,42 +11,52 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary">
         <RadioGroup
-            android:layout_gravity="center_horizontal"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:background="@color/colorPrimary"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp">
             <RadioButton
                 android:id="@+id/orderByNew"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
+                android:paddingStart="10dp"
+                android:paddingRight="0dp"
+                android:paddingEnd="0dp"
                 android:layout_marginRight="2dp"
                 android:layout_marginEnd="2dp"
                 android:layout_weight="1"
-                android:text="New"
+                android:text="@string/new_"
                 android:checked="true"
                 android:textColor="#ffffff"
                 android:onClick="changeListOrder"/>
+
             <RadioButton
                 android:id="@+id/orderByOld"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:layout_marginRight="2dp"
                 android:layout_marginEnd="2dp"
+                android:layout_marginRight="2dp"
                 android:layout_weight="1"
-                android:text="Old"
-                android:textColor="#ffffff"
-                android:onClick="changeListOrder"/>
+                android:onClick="changeListOrder"
+                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
+                android:paddingRight="0dp"
+                android:paddingEnd="0dp"
+                android:text="@string/old"
+                android:textColor="#ffffff" />
+
             <RadioButton
                 android:id="@+id/orderByPopular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
+                android:paddingStart="10dp"
+                android:paddingRight="0dp"
+                android:paddingEnd="0dp"
                 android:layout_weight="1"
-                android:text="Popular"
+                android:text="@string/popular"
                 android:textColor="#ffffff"
                 android:onClick="changeListOrder"/>
         </RadioGroup>

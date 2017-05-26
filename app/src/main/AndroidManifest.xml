@@ -24,7 +24,7 @@
         </activity>
         <activity
             android:name=".view.AuthActivity"
-            android:label="Authorization"/>
+            android:label="@string/auth_activity_label"/>
         <activity android:name=".view.UserInfoActivity" />
     </application>
 
