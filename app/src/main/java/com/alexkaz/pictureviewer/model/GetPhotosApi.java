@@ -8,7 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface GetPhotosApi {
+interface GetPhotosApi {
 
     @GET("photos")
     Call<List<PhotoDetails>> getPhotos();

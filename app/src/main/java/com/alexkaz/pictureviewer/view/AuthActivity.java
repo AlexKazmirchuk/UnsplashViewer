@@ -1,10 +1,9 @@
 package com.alexkaz.pictureviewer.view;
 
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -20,10 +19,12 @@ import com.alexkaz.pictureviewer.utills.Constants;
 public class AuthActivity extends AppCompatActivity implements AuthView {
 
     public static final String TAG = "tag";
+    public static final String FORGOT_PASS_URL = "https://unsplash.com/users/password/new";
+    public static final String JOIN_URL = "https://unsplash.com/join";
+    public static final String MAIN_PAGE_URL = "https://unsplash.com/";
 
     private WebView webView;
     private ProgressBar progressBar;
-    private SharedPreferences prefs;
     private AuthPresenter presenter;
     boolean authComplete = false;
 
@@ -80,17 +81,15 @@ public class AuthActivity extends AppCompatActivity implements AuthView {
         if (url.contains("facebook")){
             webView.stopLoading();
             hideProgressBar();
-            Toast.makeText(AuthActivity.this, "Login with facebook not supported yet", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AuthActivity.this, R.string.fb_auth_not_supported_message, Toast.LENGTH_SHORT).show();
         }
-        if (url.contains("https://unsplash.com/users/password/new") || url.contains("https://unsplash.com/join") || url.equals("https://unsplash.com/")){
+        if (url.contains(FORGOT_PASS_URL) || url.contains(JOIN_URL) || url.equals(MAIN_PAGE_URL)){
             webView.stopLoading();
             hideProgressBar();
         }
     }
 
     public void handleAuthCode(String code){
-        Log.d(TAG,code);  // todo delete in future
-        Toast.makeText(this,code,Toast.LENGTH_SHORT).show(); // todo delete in future
         showProgressBar();
         webView.setVisibility(View.INVISIBLE);
         presenter.doFullAuth(code);
@@ -98,7 +97,6 @@ public class AuthActivity extends AppCompatActivity implements AuthView {
 
     @Override
     public void onSuccesfull() {
-        // todo return to main activity;
         setResult(RESULT_OK);
         finish();
     }

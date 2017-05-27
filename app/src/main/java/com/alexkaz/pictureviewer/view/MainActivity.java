@@ -29,12 +29,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     public static final int AUTH_ACTIVITY_REQ_CODE = 1;
     private static final int PAGE_SIZE = 10;
+    public static final int START_PAGE = 1;
 
     private RecyclerView mRecyclerView;
     private RecyclerAdapter recyclerAdapter;
 
     private MainPresenter mainPresenter;
-    private int currentPage = 1;
+    private int currentPage = START_PAGE;
     private int forUpdateItemPosition;
     private boolean loadingInProgress;
     private String orderBy = Constants.LATEST;
@@ -71,14 +72,22 @@ public class MainActivity extends AppCompatActivity implements MainView {
         recyclerAdapter = new RecyclerAdapter() {
             @Override
             public void likePhoto(String photoId, int position) {
-                forUpdateItemPosition = position;
-                mainPresenter.makeLike(photoId);
+                if (isOnline()){
+                    forUpdateItemPosition = position;
+                    mainPresenter.makeLike(photoId);
+                } else {
+                    showErrorMessage(getString(R.string.no_connection_message));
+                }
             }
 
             @Override
             public void unLikePhoto(String photoId, int position) {
-                forUpdateItemPosition = position;
-                mainPresenter.makeUnLike(photoId);
+                if (isOnline()){
+                    forUpdateItemPosition = position;
+                    mainPresenter.makeUnLike(photoId);
+                } else {
+                    showErrorMessage(getString(R.string.no_connection_message));
+                }
             }
         };
         mRecyclerView.setAdapter(recyclerAdapter);
@@ -121,8 +130,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void showErrorMessage(String message) {
         Toast.makeText(this,message,Toast.LENGTH_LONG).show();
-        loadingInProgress = false;
-        recyclerAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -139,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
             loadingInProgress = true;
             enableRadioButtons(false);
         } else {
-            showErrorMessage("No internet!");
+            showErrorMessage(getString(R.string.no_connection_message));
         }
     }
 
@@ -203,6 +210,5 @@ public class MainActivity extends AppCompatActivity implements MainView {
         } else {
             return super.onOptionsItemSelected(item);
         }
-
     }
 }

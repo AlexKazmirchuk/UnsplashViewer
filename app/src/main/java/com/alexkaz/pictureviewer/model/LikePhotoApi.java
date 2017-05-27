@@ -7,7 +7,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-public interface LikePhotoApi {
+interface LikePhotoApi {
 
     @POST("photos/{id}/like")
     Call<LikedPhotoDetails> likePhoto(@Path("id") String id);

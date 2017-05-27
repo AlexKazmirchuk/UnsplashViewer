@@ -1,8 +1,6 @@
 package com.alexkaz.pictureviewer.presenter;
 
-import android.util.Log;
-
-import com.alexkaz.pictureviewer.model.entity.AuthResponse;
+import com.alexkaz.pictureviewer.model.entity.TokenDetails;
 import com.alexkaz.pictureviewer.model.AuthService;
 import com.alexkaz.pictureviewer.model.AuthServiceImpl;
 import com.alexkaz.pictureviewer.model.PrefsHelper;
@@ -26,17 +24,13 @@ public class AuthPresenterImpl implements AuthPresenter {
 
     @Override
     public void doFullAuth(String code) {
-        Call<AuthResponse> tokenInfo = authService.getTokenInfo(code);
-        tokenInfo.enqueue(new Callback<AuthResponse>() {
+        Call<TokenDetails> tokenInfo = authService.getTokenInfo(code);
+        tokenInfo.enqueue(new Callback<TokenDetails>() {
             @Override
-            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+            public void onResponse(Call<TokenDetails> call, Response<TokenDetails> response) {
                 if (response.isSuccessful()){
-                    AuthResponse tokenInfo = response.body();
-
-                    prefsHelper.saveToken(tokenInfo.getAccessToken());
-                    prefsHelper.saveString("scope",tokenInfo.getScope());
-                    prefsHelper.saveString("tokenType",tokenInfo.getTokenType());
-                    prefsHelper.saveInt("createdAt",tokenInfo.getCreatedAt());
+                    TokenDetails tokenDetails = response.body();
+                    prefsHelper.saveToken(tokenDetails.getAccessToken());
                     prefsHelper.setAuthenticated(true);
                     view.onSuccesfull();
                 } else {
@@ -45,7 +39,7 @@ public class AuthPresenterImpl implements AuthPresenter {
             }
 
             @Override
-            public void onFailure(Call<AuthResponse> call, Throwable t) {
+            public void onFailure(Call<TokenDetails> call, Throwable t) {
                 view.showErrorMessage(t.getMessage());
             }
         });

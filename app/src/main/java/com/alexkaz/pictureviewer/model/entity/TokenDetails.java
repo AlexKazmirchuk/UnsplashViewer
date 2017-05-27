@@ -3,7 +3,7 @@ package com.alexkaz.pictureviewer.model.entity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class AuthResponse {
+public class TokenDetails {
 
     @SerializedName("access_token")
     @Expose
@@ -22,7 +22,7 @@ public class AuthResponse {
      * No args constructor for use in serialization
      *
      */
-    public AuthResponse() {
+    public TokenDetails() {
     }
 
     /**
@@ -32,7 +32,7 @@ public class AuthResponse {
      * @param accessToken
      * @param createdAt
      */
-    public AuthResponse(String accessToken, String tokenType, String scope, int createdAt) {
+    public TokenDetails(String accessToken, String tokenType, String scope, int createdAt) {
         super();
         this.accessToken = accessToken;
         this.tokenType = tokenType;

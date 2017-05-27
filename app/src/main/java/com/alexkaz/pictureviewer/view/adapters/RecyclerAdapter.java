@@ -93,7 +93,6 @@ public abstract class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapt
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // todo launch activity with full info about user
                     Intent intent = new Intent(v.getContext(), UserInfoActivity.class);
                     intent.putExtra("user",photos.get(getLayoutPosition()).getUser());
                     v.getContext().startActivity(intent);

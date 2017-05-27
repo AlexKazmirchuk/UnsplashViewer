@@ -27,4 +27,8 @@ public class Constants {
     public static final String LATEST = "latest";
     public static final String OLDEST = "oldest";
     public static final String POPULAR = "popular";
+
+    public static final String AUTHORIZATION = "Authorization";
+    public static final String AUTHORIZATION_TYPE = "Bearer";
+
 }

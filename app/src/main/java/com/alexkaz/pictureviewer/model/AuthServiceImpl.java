@@ -1,6 +1,6 @@
 package com.alexkaz.pictureviewer.model;
 
-import com.alexkaz.pictureviewer.model.entity.AuthResponse;
+import com.alexkaz.pictureviewer.model.entity.TokenDetails;
 import com.alexkaz.pictureviewer.utills.Constants;
 
 import retrofit2.Call;
@@ -20,7 +20,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public Call<AuthResponse> getTokenInfo(String code) {
+    public Call<TokenDetails> getTokenInfo(String code) {
         return authTokenApi.getToken(Constants.CLIENT_ID,
                 Constants.CLIENT_SECRET,
                 Constants.REDIRECT_URI,

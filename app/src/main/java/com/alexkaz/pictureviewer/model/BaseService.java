@@ -37,7 +37,7 @@ abstract class BaseService {
                     public Response intercept(Chain chain) throws IOException {
                         Request originalRequest = chain.request();
                         Request.Builder builder = originalRequest.newBuilder()
-                                .header("Authorization","Bearer " + prefsHelper.getToken());
+                                .header(Constants.AUTHORIZATION,Constants.AUTHORIZATION_TYPE + " " + prefsHelper.getToken());
                         Request newRequest = builder.build();
                         return chain.proceed(newRequest);
                     }
