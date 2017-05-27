@@ -1,16 +1,18 @@
 package com.alexkaz.pictureviewer.view;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.alexkaz.pictureviewer.R;
-import com.alexkaz.pictureviewer.auth.MyWebViewClient;
 import com.alexkaz.pictureviewer.presenter.AuthPresenter;
 import com.alexkaz.pictureviewer.presenter.AuthPresenterImpl;
 import com.alexkaz.pictureviewer.utills.Constants;
@@ -23,6 +25,7 @@ public class AuthActivity extends AppCompatActivity implements AuthView {
     private ProgressBar progressBar;
     private SharedPreferences prefs;
     private AuthPresenter presenter;
+    boolean authComplete = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +41,28 @@ public class AuthActivity extends AppCompatActivity implements AuthView {
         webView = (WebView) findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(Constants.OAUTH2_URL);
-        webView.setWebViewClient(new MyWebViewClient(this));
+        webView.setWebViewClient(new WebViewClient(){
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                interceptUrls(url);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                showWebView();
+            }
+        });
     }
 
-    private void showProgress(){
-        webView.setVisibility(View.INVISIBLE);
+    public void showProgressBar(){
         progressBar.setVisibility(View.VISIBLE);
+    }
+
+    public void showWebView(){
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -51,10 +70,29 @@ public class AuthActivity extends AppCompatActivity implements AuthView {
         //todo impl message showing
     }
 
+    private void interceptUrls(String url){
+        if (url.contains("authorize/") && !authComplete){
+            Uri uri = Uri.parse(url);
+            authComplete = true;
+            handleAuthCode(uri.getLastPathSegment());
+        }
+        showProgressBar();
+        if (url.contains("facebook")){
+            webView.stopLoading();
+            showWebView();
+            Toast.makeText(AuthActivity.this, "Login with facebook not supported yet", Toast.LENGTH_SHORT).show();
+        }
+        if (url.contains("https://unsplash.com/users/password/new") || url.contains("https://unsplash.com/join") || url.equals("https://unsplash.com/")){
+            webView.stopLoading();
+            showWebView();
+        }
+    }
+
     public void handleAuthCode(String code){
-        Log.d(TAG,code);
-        Toast.makeText(this,code,Toast.LENGTH_SHORT).show();
-        showProgress();
+        Log.d(TAG,code);  // todo delete in future
+        Toast.makeText(this,code,Toast.LENGTH_SHORT).show(); // todo delete in future
+        showProgressBar();
+        webView.setVisibility(View.INVISIBLE);
         presenter.doFullAuth(code);
     }
 

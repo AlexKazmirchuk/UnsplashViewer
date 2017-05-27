@@ -54,9 +54,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         SharedPreferences preferences = getSharedPreferences(Constants.APP_PREFS,MODE_PRIVATE);
         boolean isAuthenticated = preferences.getBoolean(Constants.AUTHENTICATED,false);
         if (!isAuthenticated){
-            // todo call AuthActivity for result maybe
             Intent authIntent  = new Intent(this, AuthActivity.class);
-            startActivity(authIntent);
             startActivityForResult(authIntent, AUTH_ACTIVITY_REQ_CODE);
         }
     }
