@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         Paginate.with(mRecyclerView,callbacks)
                 .setLoadingTriggerThreshold(2)
-                .addLoadingListItem(true)
+                .addLoadingListItem(false)
                 .build();
 
     }
@@ -143,11 +144,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
         if (isOnline()){
             mainPresenter.loadPage(currentPage, PAGE_SIZE,orderBy);
             currentPage++;
-            loadingInProgress = true;
             enableRadioButtons(false);
         } else {
             showErrorMessage(getString(R.string.no_connection_message));
         }
+        loadingInProgress = true;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.alexkaz.pictureviewer.presenter;
 
+import android.util.Log;
+
 import com.alexkaz.pictureviewer.model.GetPhotosService;
 import com.alexkaz.pictureviewer.model.GetPhotosServiceImpl;
 import com.alexkaz.pictureviewer.model.LikePhotoService;
