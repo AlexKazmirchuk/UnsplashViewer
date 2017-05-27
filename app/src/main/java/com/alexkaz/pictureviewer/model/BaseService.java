@@ -12,12 +12,12 @@ import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public abstract class BaseService {
+abstract class BaseService {
 
     private PrefsHelper prefsHelper;
     private Retrofit retrofit;
 
-    public BaseService() {
+    BaseService() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -26,7 +26,7 @@ public abstract class BaseService {
         prefsHelper = new PrefsHelperImpl();
     }
 
-    protected <T> T getApi(Class<T> api){
+    <T> T getApi(Class<T> api){
         return retrofit.create(api);
     }
 

@@ -52,7 +52,7 @@ public class AuthActivity extends AppCompatActivity implements AuthView {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                showWebView();
+                hideProgressBar();
             }
         });
     }
@@ -61,13 +61,13 @@ public class AuthActivity extends AppCompatActivity implements AuthView {
         progressBar.setVisibility(View.VISIBLE);
     }
 
-    public void showWebView(){
+    public void hideProgressBar(){
         progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
-    public void showErrorMessage() {
-        //todo impl message showing
+    public void showErrorMessage(String message) {
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 
     private void interceptUrls(String url){
@@ -79,12 +79,12 @@ public class AuthActivity extends AppCompatActivity implements AuthView {
         showProgressBar();
         if (url.contains("facebook")){
             webView.stopLoading();
-            showWebView();
+            hideProgressBar();
             Toast.makeText(AuthActivity.this, "Login with facebook not supported yet", Toast.LENGTH_SHORT).show();
         }
         if (url.contains("https://unsplash.com/users/password/new") || url.contains("https://unsplash.com/join") || url.equals("https://unsplash.com/")){
             webView.stopLoading();
-            showWebView();
+            hideProgressBar();
         }
     }
 
@@ -104,10 +104,8 @@ public class AuthActivity extends AppCompatActivity implements AuthView {
     }
 
     @Override
-    public void onFail() {
-        // todo show some warning info
+    public void onBackPressed() {
         setResult(RESULT_CANCELED);
-        finish();
+        super.onBackPressed();
     }
-
 }

@@ -1,4 +1,4 @@
-package com.alexkaz.pictureviewer.view;
+package com.alexkaz.pictureviewer.utills;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

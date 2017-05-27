@@ -1,5 +1,6 @@
 package com.alexkaz.pictureviewer.model;
 
+import com.alexkaz.pictureviewer.model.entity.AuthResponse;
 import com.alexkaz.pictureviewer.utills.Constants;
 
 import retrofit2.Call;

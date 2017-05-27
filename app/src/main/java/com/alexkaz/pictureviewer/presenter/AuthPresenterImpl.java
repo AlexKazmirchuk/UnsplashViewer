@@ -2,7 +2,7 @@ package com.alexkaz.pictureviewer.presenter;
 
 import android.util.Log;
 
-import com.alexkaz.pictureviewer.model.AuthResponse;
+import com.alexkaz.pictureviewer.model.entity.AuthResponse;
 import com.alexkaz.pictureviewer.model.AuthService;
 import com.alexkaz.pictureviewer.model.AuthServiceImpl;
 import com.alexkaz.pictureviewer.model.PrefsHelper;
@@ -38,23 +38,15 @@ public class AuthPresenterImpl implements AuthPresenter {
                     prefsHelper.saveString("tokenType",tokenInfo.getTokenType());
                     prefsHelper.saveInt("createdAt",tokenInfo.getCreatedAt());
                     prefsHelper.setAuthenticated(true);
-
-                    Log.d("tag",tokenInfo.getAccessToken());
-                    Log.d("tag",tokenInfo.getScope());
-                    Log.d("tag",tokenInfo.getTokenType());
-                    Log.d("tag",tokenInfo.getCreatedAt() + "");
-
                     view.onSuccesfull();
                 } else {
-                    view.showErrorMessage();
-                    Log.d("tag","Error!!!!!!!");
+                    view.showErrorMessage(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
-                Log.d("tag",t.getMessage());
-                view.onFail();
+                view.showErrorMessage(t.getMessage());
             }
         });
     }

@@ -11,18 +11,19 @@ import android.widget.TextView;
 import com.alexkaz.pictureviewer.R;
 import com.alexkaz.pictureviewer.app.MyApp;
 import com.alexkaz.pictureviewer.model.entity.PhotoDetails;
-import com.alexkaz.pictureviewer.view.CircleTransform;
+import com.alexkaz.pictureviewer.utills.CircleTransform;
 import com.alexkaz.pictureviewer.view.UserInfoActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public abstract class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.PhotoHolder> {
 
     private List<PhotoDetails> photos;
 
-    public RecyclerAdapter() {
+    protected RecyclerAdapter() {
         this.photos = new ArrayList<>();
     }
 
@@ -48,7 +49,7 @@ public abstract class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapt
         Picasso.with(MyApp.getContext()).load(photoDetails.getUser().getProfileImage().getMedium()).transform(new CircleTransform()).into(holder.userPhotoImgView);
         holder.userNameTxtView.setText(photoDetails.getUser().getName());
         Picasso.with(MyApp.getContext()).load(photoDetails.getUrls().getSmall()).into(holder.bigImgView);
-        holder.likeAmountTxtView.setText(photoDetails.getLikes() + "");
+        holder.likeAmountTxtView.setText(String.format(Locale.getDefault(),"%d", photoDetails.getLikes()));
         holder.likeImgView.setImageResource(photoDetails.isLikedByUser() ? R.drawable.liked_ic : R.drawable.unliked_ic);
     }
 
@@ -64,7 +65,7 @@ public abstract class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapt
         this.photos = photos;
     }
 
-    public class PhotoHolder extends RecyclerView.ViewHolder {
+    class PhotoHolder extends RecyclerView.ViewHolder {
         private String photoId;
         private boolean isLikedByUser;
 
@@ -74,7 +75,7 @@ public abstract class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapt
         private ImageView likeImgView;
         private TextView likeAmountTxtView;
 
-        public PhotoHolder(View v) {
+        PhotoHolder(View v) {
             super(v);
             userPhotoImgView = (ImageView) v.findViewById(R.id.userPhotoImgView);
             userNameTxtView = (TextView) v.findViewById(R.id.userNameTxtView);

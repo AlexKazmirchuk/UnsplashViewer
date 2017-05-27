@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.alexkaz.pictureviewer.R;
 import com.alexkaz.pictureviewer.model.entity.User;
+import com.alexkaz.pictureviewer.utills.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 import java.util.Locale;

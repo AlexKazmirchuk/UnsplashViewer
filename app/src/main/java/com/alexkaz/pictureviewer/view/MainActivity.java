@@ -28,13 +28,13 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements MainView {
 
     public static final int AUTH_ACTIVITY_REQ_CODE = 1;
+    private static final int PAGE_SIZE = 10;
 
     private RecyclerView mRecyclerView;
     private RecyclerAdapter recyclerAdapter;
-    private MainPresenter mainPresenter;
 
+    private MainPresenter mainPresenter;
     private int currentPage = 1;
-    private int pageSize = 10;
     private int forUpdateItemPosition;
     private boolean loadingInProgress;
     private String orderBy = Constants.LATEST;
@@ -44,10 +44,16 @@ public class MainActivity extends AppCompatActivity implements MainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setElevation(0);
+        configureActionBar();
         checkAuthorization();
         mainPresenter = new MainPresenterImpl(this);
         configureRecycleView();
+    }
+
+    private void configureActionBar(){
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setElevation(0);
+        }
     }
 
     private void checkAuthorization(){
@@ -65,14 +71,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
         recyclerAdapter = new RecyclerAdapter() {
             @Override
             public void likePhoto(String photoId, int position) {
-                // todo call presenter method for make like
                 forUpdateItemPosition = position;
                 mainPresenter.makeLike(photoId);
             }
 
             @Override
             public void unLikePhoto(String photoId, int position) {
-                // todo call presenter method for make like
                 forUpdateItemPosition = position;
                 mainPresenter.makeUnLike(photoId);
             }
@@ -117,6 +121,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void showErrorMessage(String message) {
         Toast.makeText(this,message,Toast.LENGTH_LONG).show();
+        loadingInProgress = false;
+        recyclerAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -128,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     private void loadNextPage(){
         if (isOnline()){
-            mainPresenter.loadPage(currentPage,pageSize,orderBy);
+            mainPresenter.loadPage(currentPage, PAGE_SIZE,orderBy);
             currentPage++;
             loadingInProgress = true;
             enableRadioButtons(false);
@@ -149,15 +155,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
         if (v.getId() != checkedRadioButtonId){
             switch (v.getId()){
                 case R.id.orderByNew:
-                    Toast.makeText(this,"New clicked",Toast.LENGTH_SHORT).show();
                     orderBy = Constants.LATEST;
                     break;
                 case R.id.orderByOld:
-                    Toast.makeText(this,"Old clicked",Toast.LENGTH_SHORT).show();
                     orderBy = Constants.OLDEST;
                     break;
                 case R.id.orderByPopular:
-                    Toast.makeText(this,"Popular clicked",Toast.LENGTH_SHORT).show();
                     orderBy = Constants.POPULAR;
                     break;
             }
