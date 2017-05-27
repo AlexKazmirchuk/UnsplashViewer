@@ -13,7 +13,7 @@
         android:orientation="vertical">
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="@dimen/user_info_bg_height"
             android:scaleType="centerCrop"
             android:src="@drawable/user_info_bg"/>
         <android.support.v4.widget.NestedScrollView
@@ -221,6 +221,6 @@
         android:layout_height="130dp"
         android:background="@drawable/rounded_bg"
         android:padding="4dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="@dimen/user_photo_margin_top"
         android:layout_gravity="center_horizontal"/>
 </FrameLayout>
