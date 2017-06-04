@@ -129,11 +129,6 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     @Override
-    public void showErrorMessage(String message) {
-        Toast.makeText(this,message,Toast.LENGTH_LONG).show();
-    }
-
-    @Override
     public void updateItem(PhotoDetails photoDetails) {
         recyclerAdapter.getPhotos().get(forUpdateItemPosition).setLikes(photoDetails.getLikes());
         recyclerAdapter.getPhotos().get(forUpdateItemPosition).setLikedByUser(photoDetails.isLikedByUser());

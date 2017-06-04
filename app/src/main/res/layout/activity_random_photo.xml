@@ -12,4 +12,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"/>
+    <include layout="@layout/network_state_message"/>
 </FrameLayout>

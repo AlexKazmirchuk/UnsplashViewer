@@ -99,11 +99,6 @@ public class AuthActivity extends BaseActivity implements AuthView {
     }
 
     @Override
-    public void showErrorMessage(String message) {
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void onSuccessfull() {
         setResult(RESULT_OK);
         finish();

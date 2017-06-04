@@ -1,18 +1,16 @@
 package com.alexkaz.pictureviewer.view;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.alexkaz.pictureviewer.R;
 import com.alexkaz.pictureviewer.model.entity.PhotoDetails;
 import com.alexkaz.pictureviewer.presenter.RandomPhotoPresenter;
 import com.alexkaz.pictureviewer.presenter.RandomPhotoPresenterImpl;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-public class RandomPhotoActivity extends AppCompatActivity implements RandomPhotoView {
+public class RandomPhotoActivity extends BaseActivity implements RandomPhotoView,Callback {
 
     private ImageView imageView;
     private RandomPhotoPresenter randomPhotoPresenter;
@@ -25,6 +23,7 @@ public class RandomPhotoActivity extends AppCompatActivity implements RandomPhot
         imageView = (ImageView) findViewById(R.id.randomPhoto);
         randomPhotoPresenter = new RandomPhotoPresenterImpl(this);
         loadPhoto();
+        showProgressBar();
     }
 
     private void loadPhoto(){
@@ -33,11 +32,16 @@ public class RandomPhotoActivity extends AppCompatActivity implements RandomPhot
 
     @Override
     public void showRandomPhoto(PhotoDetails photo) {
-        Picasso.with(this).load(photo.getUrls().getRegular()).into(imageView);
+        Picasso.with(this).load(photo.getUrls().getRegular()).into(imageView,this);
     }
 
     @Override
-    public void showErrorMessage(String message) {
-        Toast.makeText(this,message,Toast.LENGTH_LONG).show();
+    public void onSuccess() {
+        hideProgressBar();
+    }
+
+    @Override
+    public void onError() {
+        showErrorMessage("Some error happens");
     }
 }

@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.view.*;
+import android.widget.Toast;
 
 import com.alexkaz.pictureviewer.R;
 
@@ -14,6 +15,10 @@ public class BaseActivity extends AppCompatActivity {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    public void showErrorMessage(String message) {
+        Toast.makeText(this,message,Toast.LENGTH_LONG).show();
     }
 
     protected void showProgressBar(){
