@@ -12,4 +12,6 @@
     <string name="auth_activity_label">Authorization</string>
     <string name="fb_auth_not_supported_message">Login with facebook not supported yet</string>
     <string name="no_connection_message">No internet!</string>
+    <string name="refresh">Refresh</string>
+    <string name="random_photo">Random photo</string>
 </resources>

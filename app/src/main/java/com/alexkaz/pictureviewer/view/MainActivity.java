@@ -206,15 +206,17 @@ public class MainActivity extends BaseActivity implements MainView {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_refresh){
-            if (isOnline()){
+        if (isOnline()){
+            if (item.getItemId() == R.id.action_refresh){
                 loadStartPage();
-            } else {
-                showErrorMessage(getString(R.string.no_connection_message));
+            }
+            if (item.getItemId() == R.id.action_random_photo){
+                startActivity(new Intent(this,RandomPhotoActivity.class));
             }
             return true;
         } else {
-            return super.onOptionsItemSelected(item);
+            showErrorMessage(getString(R.string.no_connection_message));
         }
+        return super.onOptionsItemSelected(item);
     }
 }
