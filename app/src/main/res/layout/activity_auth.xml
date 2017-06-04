@@ -10,31 +10,5 @@
         android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <LinearLayout
-        android:id="@+id/noConnectionView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="invisible"
-        android:layout_gravity="center_horizontal|center_vertical">
-        <ImageView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:src="@drawable/no_internet_ic"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:textColor="#347DA9"
-            android:paddingTop="30dp"
-            android:text="No internet connection!"
-            android:gravity="center_horizontal"/>
-    </LinearLayout>
+    <include layout="@layout/network_state_message"/>
 </FrameLayout>
