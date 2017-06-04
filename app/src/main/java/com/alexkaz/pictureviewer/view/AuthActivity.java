@@ -1,12 +1,8 @@
 package com.alexkaz.pictureviewer.view;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +16,7 @@ import com.alexkaz.pictureviewer.presenter.AuthPresenter;
 import com.alexkaz.pictureviewer.presenter.AuthPresenterImpl;
 import com.alexkaz.pictureviewer.utills.Constants;
 
-public class AuthActivity extends AppCompatActivity implements AuthView {
+public class AuthActivity extends BaseActivity implements AuthView {
 
     public static final String FORGOT_PASS_URL = "https://unsplash.com/users/password/new";
     public static final String JOIN_URL = "https://unsplash.com/join";
@@ -95,12 +91,6 @@ public class AuthActivity extends AppCompatActivity implements AuthView {
 
     private void hideAlertMessage(){
         findViewById(R.id.noConnectionView).setVisibility(View.INVISIBLE);
-    }
-
-    public boolean isOnline() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     private void handleUrls(String url){

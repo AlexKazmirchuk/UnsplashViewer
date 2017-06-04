@@ -1,15 +1,10 @@
 package com.alexkaz.pictureviewer.view;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +21,7 @@ import com.paginate.Paginate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MainView {
+public class MainActivity extends BaseActivity implements MainView {
 
     public static final int AUTH_ACTIVITY_REQ_CODE = 1;
     private static final int PAGE_SIZE = 10;
@@ -189,12 +184,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
         findViewById(R.id.orderByNew).setEnabled(enabled);
         findViewById(R.id.orderByOld).setEnabled(enabled);
         findViewById(R.id.orderByPopular).setEnabled(enabled);
-    }
-
-    public boolean isOnline() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     @Override
