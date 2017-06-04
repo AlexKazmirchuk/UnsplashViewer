@@ -32,7 +32,7 @@ public class AuthPresenterImpl implements AuthPresenter {
                     TokenDetails tokenDetails = response.body();
                     prefsHelper.saveToken(tokenDetails.getAccessToken());
                     prefsHelper.setAuthenticated(true);
-                    view.onSuccesfull();
+                    view.onSuccessfull();
                 } else {
                     view.showErrorMessage(response.message());
                 }
