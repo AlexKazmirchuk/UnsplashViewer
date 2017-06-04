@@ -45,6 +45,11 @@ public class MainActivity extends BaseActivity implements MainView {
         checkAuthorization();
         mainPresenter = new MainPresenterImpl(this);
         configureRecycleView();
+        showProgressBar();
+        if (!isOnline()){
+            showAlertMessage();
+            hideProgressBar();
+        }
     }
 
     private void configureActionBar(){
@@ -135,23 +140,13 @@ public class MainActivity extends BaseActivity implements MainView {
         recyclerAdapter.notifyDataSetChanged();
     }
 
-    private void loadNextPage(){
-        if (isOnline()){
-            mainPresenter.loadPage(currentPage, PAGE_SIZE,orderBy);
-            currentPage++;
-            enableRadioButtons(false);
-        } else {
-            showErrorMessage(getString(R.string.no_connection_message));
-        }
-        loadingInProgress = true;
-    }
-
     @Override
     public void showNextPage(List<PhotoDetails> photos) {
         recyclerAdapter.getPhotos().addAll(photos);
         recyclerAdapter.notifyDataSetChanged();
         loadingInProgress = false;
         enableRadioButtons(true);
+        hideProgressBar();
     }
 
     public void changeListOrder(View v){
@@ -167,8 +162,12 @@ public class MainActivity extends BaseActivity implements MainView {
                     orderBy = Constants.POPULAR;
                     break;
             }
-            loadStartPage();
             checkedRadioButtonId = v.getId();
+            if (isOnline()){
+                loadStartPage();
+            } else {
+                showErrorMessage(getString(R.string.no_connection_message));
+            }
         }
     }
 
@@ -178,6 +177,19 @@ public class MainActivity extends BaseActivity implements MainView {
         recyclerAdapter.setPhotos(new ArrayList<PhotoDetails>());
         recyclerAdapter.notifyDataSetChanged();
         loadNextPage();
+    }
+
+    private void loadNextPage(){
+        if (isOnline()){
+            mainPresenter.loadPage(currentPage, PAGE_SIZE,orderBy);
+            currentPage++;
+            enableRadioButtons(false);
+            showProgressBar();
+            hideAlertMessage();
+        } else {
+            showErrorMessage(getString(R.string.no_connection_message));
+        }
+        loadingInProgress = true;
     }
 
     private void enableRadioButtons(boolean enabled){
@@ -195,7 +207,11 @@ public class MainActivity extends BaseActivity implements MainView {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_refresh){
-            loadStartPage();
+            if (isOnline()){
+                loadStartPage();
+            } else {
+                showErrorMessage(getString(R.string.no_connection_message));
+            }
             return true;
         } else {
             return super.onOptionsItemSelected(item);

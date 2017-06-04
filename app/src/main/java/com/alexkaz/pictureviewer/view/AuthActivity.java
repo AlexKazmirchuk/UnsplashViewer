@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.alexkaz.pictureviewer.R;
@@ -23,7 +22,6 @@ public class AuthActivity extends BaseActivity implements AuthView {
     public static final String MAIN_PAGE_URL = "https://unsplash.com/";
 
     private WebView webView;
-    private ProgressBar progressBar;
     private AuthPresenter presenter;
     boolean authComplete = false;
 
@@ -33,7 +31,6 @@ public class AuthActivity extends BaseActivity implements AuthView {
         setContentView(R.layout.activity_auth);
 
         configureWebView();
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         presenter = new AuthPresenterImpl(this);
         if (!isOnline()){
             showAlertMessage();
@@ -69,28 +66,12 @@ public class AuthActivity extends BaseActivity implements AuthView {
         });
     }
 
-    private void showProgressBar(){
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    private void hideProgressBar(){
-        progressBar.setVisibility(View.INVISIBLE);
-    }
-
     private void showWebView(){
         webView.setVisibility(View.VISIBLE);
     }
 
     private void hideWebView(){
         webView.setVisibility(View.INVISIBLE);
-    }
-
-    private void showAlertMessage(){
-        findViewById(R.id.noConnectionView).setVisibility(View.VISIBLE);
-    }
-
-    private void hideAlertMessage(){
-        findViewById(R.id.noConnectionView).setVisibility(View.INVISIBLE);
     }
 
     private void handleUrls(String url){
