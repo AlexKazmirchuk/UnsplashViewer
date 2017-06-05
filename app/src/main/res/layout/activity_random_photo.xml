@@ -10,7 +10,6 @@
     <ImageView
         android:id="@+id/randomPhoto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
+        android:layout_height="match_parent"/>
     <include layout="@layout/network_state_message"/>
 </FrameLayout>

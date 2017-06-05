@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.alexkaz.pictureviewer.R;
 import com.alexkaz.pictureviewer.model.entity.PhotoDetails;
@@ -203,6 +202,7 @@ public class MainActivity extends BaseActivity implements MainView {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (isOnline()){
             if (item.getItemId() == R.id.action_refresh){
+                addAnimToActionRefreshItem(item);
                 loadStartPage();
             }
             if (item.getItemId() == R.id.action_random_photo){

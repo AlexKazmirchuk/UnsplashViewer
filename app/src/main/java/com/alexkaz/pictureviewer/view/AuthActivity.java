@@ -122,6 +122,7 @@ public class AuthActivity extends BaseActivity implements AuthView {
             if (isOnline()){
                 webView.loadUrl(Constants.OAUTH2_URL);
                 hideAlertMessage();
+                addAnimToActionRefreshItem(item);
             }else {
                 hideWebView();
                 showAlertMessage();

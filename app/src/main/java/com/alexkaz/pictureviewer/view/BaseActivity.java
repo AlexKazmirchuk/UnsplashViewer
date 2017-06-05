@@ -5,11 +5,14 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.view.*;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.alexkaz.pictureviewer.R;
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     protected boolean isOnline() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -35,5 +38,26 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void hideAlertMessage(){
         findViewById(R.id.noConnectionView).setVisibility(android.view.View.INVISIBLE);
+    }
+
+    protected void addAnimToActionRefreshItem(final MenuItem item){
+        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        ImageView iv = (ImageView)inflater.inflate(R.layout.iv_refresh, null);
+        Animation rotation = AnimationUtils.loadAnimation(this, R.anim.rotation);
+        rotation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                item.getActionView().clearAnimation();
+                item.setActionView(null);
+            }
+        });
+        iv.startAnimation(rotation);
+        item.setActionView(iv);
     }
 }
