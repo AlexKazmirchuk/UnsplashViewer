@@ -12,7 +12,7 @@ import com.alexkaz.pictureviewer.R;
 import com.alexkaz.pictureviewer.app.MyApp;
 import com.alexkaz.pictureviewer.model.entity.PhotoDetails;
 import com.alexkaz.pictureviewer.utills.CircleTransform;
-import com.alexkaz.pictureviewer.view.UserInfoActivity;
+import com.alexkaz.pictureviewer.view.impl.UserInfoActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

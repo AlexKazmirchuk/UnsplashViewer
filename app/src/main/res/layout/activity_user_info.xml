@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#e1e1e1"
-    tools:context="com.alexkaz.pictureviewer.view.UserInfoActivity">
+    tools:context="com.alexkaz.pictureviewer.view.impl.UserInfoActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

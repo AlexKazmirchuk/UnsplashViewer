@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.MainActivity"
+            android:name=".view.impl.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,11 +23,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.AuthActivity"
+            android:name=".view.impl.AuthActivity"
             android:label="@string/auth_activity_label" />
-        <activity android:name=".view.UserInfoActivity" />
+        <activity android:name=".view.impl.UserInfoActivity" />
         <activity
-            android:name=".view.RandomPhotoActivity"
+            android:name=".view.impl.RandomPhotoActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
     </application>
 

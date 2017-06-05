@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.alexkaz.pictureviewer.view.MainActivity">
+    tools:context="com.alexkaz.pictureviewer.view.impl.MainActivity">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
