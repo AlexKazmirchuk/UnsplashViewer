@@ -17,17 +17,18 @@
         android:visibility="invisible"
         android:layout_gravity="center_horizontal|center_vertical">
         <ImageView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:src="@drawable/no_internet_ic"/>
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/no_connection_ic"/>
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25sp"
             android:textStyle="bold"
-            android:textColor="#347DA9"
+            android:textColor="#a4a4a4"
             android:paddingTop="30dp"
-            android:text="No internet connection!"
+            android:text="@string/no_internet_connection"
             android:gravity="center_horizontal"/>
     </LinearLayout>
 
