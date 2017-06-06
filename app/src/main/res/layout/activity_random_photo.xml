@@ -6,10 +6,74 @@
     android:layout_height="match_parent"
     tools:context="com.alexkaz.pictureviewer.view.impl.RandomPhotoActivity">
 
-    <ImageView
-        android:id="@+id/randomPhoto"
+    <RelativeLayout
+        android:id="@+id/randomPhotoDetails"
+        android:background="#e7e7e7"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:src="@drawable/user_info_bg"/>
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/userPhotoImgView"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            tools:src="@drawable/rounded_bg"/>
+
+        <TextView
+            android:id="@+id/userNameTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            tools:text="John Doe"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="12dp"
+            android:layout_alignTop="@+id/userPhotoImgView"
+            android:layout_toEndOf="@+id/userPhotoImgView"
+            android:layout_toRightOf="@+id/userPhotoImgView"/>
+
+        <ImageView
+            android:id="@+id/viewsAmountImgView"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/views_ic"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:id="@+id/viewsAmountTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            tools:text="45"
+            android:layout_marginBottom="7dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_alignBottom="@+id/viewsAmountImgView"
+            android:layout_toLeftOf="@+id/viewsAmountImgView"
+            android:layout_toStartOf="@+id/viewsAmountImgView"/>
+
+        <ImageView
+            android:id="@+id/randomPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/userPhotoImgView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_above="@id/viewsAmountImgView"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#b7b7b7"
+            tools:src="@drawable/user_info_bg"/>
+    </RelativeLayout>
     <include layout="@layout/network_state_message"/>
 </FrameLayout>

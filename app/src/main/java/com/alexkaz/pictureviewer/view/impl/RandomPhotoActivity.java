@@ -1,22 +1,28 @@
 package com.alexkaz.pictureviewer.view.impl;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alexkaz.pictureviewer.R;
 import com.alexkaz.pictureviewer.model.entity.PhotoDetails;
 import com.alexkaz.pictureviewer.presenter.api.RandomPhotoPresenter;
 import com.alexkaz.pictureviewer.presenter.impl.RandomPhotoPresenterImpl;
+import com.alexkaz.pictureviewer.utills.CircleTransform;
 import com.alexkaz.pictureviewer.view.api.RandomPhotoView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.util.Locale;
+
 public class RandomPhotoActivity extends BaseActivity implements RandomPhotoView,Callback {
 
-    private ImageView imageView;
+    private ImageView userPhoto;
+    private TextView userName;
+    private TextView amountOfViews;
+    private ImageView randomPhoto;
     private RandomPhotoPresenter randomPhotoPresenter;
 
     @Override
@@ -24,7 +30,11 @@ public class RandomPhotoActivity extends BaseActivity implements RandomPhotoView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_random_photo);
 
-        imageView = (ImageView) findViewById(R.id.randomPhoto);
+        userPhoto = (ImageView) findViewById(R.id.userPhotoImgView);
+        userName = (TextView) findViewById(R.id.userNameTxtView);
+        randomPhoto = (ImageView) findViewById(R.id.randomPhoto);
+        amountOfViews = (TextView) findViewById(R.id.viewsAmountTxtView);
+
         randomPhotoPresenter = new RandomPhotoPresenterImpl(this);
         loadPhoto();
         showProgressBar();
@@ -36,7 +46,10 @@ public class RandomPhotoActivity extends BaseActivity implements RandomPhotoView
 
     @Override
     public void showRandomPhoto(PhotoDetails photo) {
-        Picasso.with(this).load(photo.getUrls().getRegular()).into(imageView,this);
+        Picasso.with(this).load(photo.getUser().getProfileImage().getMedium()).transform(new CircleTransform()).into(userPhoto);
+        userName.setText(photo.getUser().getName());
+        Picasso.with(this).load(photo.getUrls().getRegular()).into(randomPhoto,this);
+        amountOfViews.setText(String.format(Locale.getDefault(),"%d", photo.getViews()));
     }
 
     @Override

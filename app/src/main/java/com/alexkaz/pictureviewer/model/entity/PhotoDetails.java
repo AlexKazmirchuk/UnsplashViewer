@@ -38,6 +38,10 @@ public class PhotoDetails {
     @Expose
     private boolean likedByUser;
 
+    @SerializedName("views")
+    @Expose
+    private int views;
+
     @SerializedName("user")
     @Expose
     private User user;
@@ -129,4 +133,11 @@ public class PhotoDetails {
         this.urls = urls;
     }
 
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
+    }
 }
