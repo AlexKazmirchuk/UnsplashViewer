@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">&#160;&#160;PictureViewer</string>
+    <string name="app_name">&#160;&#160;Unsplash viewer</string>
     <string name="auth_activity_label">&#160;&#160;Authorization</string>
     <string name="random_photo">&#160;&#160;Random photo</string>
     <string name="about_user">&#160;&#160;About user</string>
