@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
     tools:context="com.alexkaz.pictureviewer.view.impl.RandomPhotoActivity">
 
     <ImageView
         android:id="@+id/randomPhoto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        tools:src="@drawable/user_info_bg"/>
     <include layout="@layout/network_state_message"/>
 </FrameLayout>

@@ -28,7 +28,7 @@
         <activity android:name=".view.impl.UserInfoActivity" />
         <activity
             android:name=".view.impl.RandomPhotoActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
+            android:label="Random photo"/>
     </application>
 
 </manifest>

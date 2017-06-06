@@ -14,4 +14,5 @@
     <string name="no_connection_message">No internet!</string>
     <string name="refresh">Refresh</string>
     <string name="random_photo">Random photo</string>
+    <string name="next_photo">Next photo</string>
 </resources>

@@ -1,6 +1,9 @@
 package com.alexkaz.pictureviewer.view.impl;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.alexkaz.pictureviewer.R;
@@ -44,5 +47,26 @@ public class RandomPhotoActivity extends BaseActivity implements RandomPhotoView
     @Override
     public void onError() {
         showErrorMessage("Some error happens");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.random_photo_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (isOnline()){
+            if (item.getItemId() == R.id.action_next_photo){
+                loadPhoto();
+                showProgressBar();
+                return true;
+            }
+        } else {
+            showErrorMessage(getString(R.string.no_connection_message));
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
