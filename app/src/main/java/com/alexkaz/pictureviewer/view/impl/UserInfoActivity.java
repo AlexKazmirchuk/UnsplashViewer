@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -62,6 +63,10 @@ public class UserInfoActivity extends AppCompatActivity {
         userBio.setText(user.getBio());
         userLocation.setText(user.getLocation());
         userPortfolio.setText(parseUrl(user.getPortfolioUrl()));
+
+        if(user.getBio() == null || user.getBio().equals("")) { findViewById(R.id.userBioLabel).setVisibility(View.INVISIBLE);  }
+        if(user.getLocation() == null || user.getLocation().equals("")) { findViewById(R.id.userLocationLabel).setVisibility(View.INVISIBLE);  }
+        if(user.getPortfolioUrl() == null || user.getPortfolioUrl().equals("")) { findViewById(R.id.userPortfolioUrlLabel).setVisibility(View.INVISIBLE);  }
     }
 
     private String parseUrl(String url){
