@@ -3,6 +3,7 @@ package com.alexkaz.pictureviewer.view.impl;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,8 +37,14 @@ public class RandomPhotoActivity extends BaseActivity implements RandomPhotoView
         amountOfViews = (TextView) findViewById(R.id.viewsAmountTxtView);
 
         randomPhotoPresenter = new RandomPhotoPresenterImpl(this);
-        loadPhoto();
-        showProgressBar();
+
+        if (isOnline()){
+            loadPhoto();
+            showProgressBar();
+        } else {
+            hideLayoutWithRandomPhoto();
+            showAlertMessage();
+        }
     }
 
     private void loadPhoto(){
@@ -60,6 +67,7 @@ public class RandomPhotoActivity extends BaseActivity implements RandomPhotoView
     @Override
     public void onError() {
         showErrorMessage("Some error happens");
+        hideProgressBar();
     }
 
     @Override
@@ -74,6 +82,8 @@ public class RandomPhotoActivity extends BaseActivity implements RandomPhotoView
             if (item.getItemId() == R.id.action_next_photo){
                 loadPhoto();
                 showProgressBar();
+                showLayoutWithRandomPhoto();
+                hideAlertMessage();
                 return true;
             }
         } else {
@@ -81,5 +91,13 @@ public class RandomPhotoActivity extends BaseActivity implements RandomPhotoView
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showLayoutWithRandomPhoto(){
+        findViewById(R.id.randomPhotoDetails).setVisibility(View.VISIBLE);
+    }
+
+    private void hideLayoutWithRandomPhoto(){
+        findViewById(R.id.randomPhotoDetails).setVisibility(View.INVISIBLE);
     }
 }

@@ -22,6 +22,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void showErrorMessage(String message) {
         Toast.makeText(this,message,Toast.LENGTH_LONG).show();
+        hideProgressBar();
     }
 
     protected void showProgressBar(){
