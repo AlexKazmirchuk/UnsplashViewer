@@ -25,10 +25,12 @@
         <activity
             android:name=".view.impl.AuthActivity"
             android:label="@string/auth_activity_label" />
-        <activity android:name=".view.impl.UserInfoActivity" />
+        <activity
+            android:name=".view.impl.UserInfoActivity"
+            android:label="@string/about_user"/>
         <activity
             android:name=".view.impl.RandomPhotoActivity"
-            android:label="Random photo"/>
+            android:label="@string/random_photo"/>
     </application>
 
 </manifest>

@@ -21,7 +21,7 @@ import com.paginate.Paginate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements MainView {
+public class MainActivity extends WithRefreshIconAnimActivity implements MainView {
 
     public static final int AUTH_ACTIVITY_REQ_CODE = 1;
     private static final int PAGE_SIZE = 10;
@@ -41,7 +41,7 @@ public class MainActivity extends BaseActivity implements MainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        configureActionBar();
+
         checkAuthorization();
         mainPresenter = new MainPresenterImpl(this);
         configureRecycleView();
@@ -49,12 +49,6 @@ public class MainActivity extends BaseActivity implements MainView {
         if (!isOnline()){
             showAlertMessage();
             hideProgressBar();
-        }
-    }
-
-    private void configureActionBar(){
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setElevation(0);
         }
     }
 

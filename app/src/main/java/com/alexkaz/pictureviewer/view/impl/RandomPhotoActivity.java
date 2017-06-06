@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
 
-public class RandomPhotoActivity extends BaseActivity implements RandomPhotoView,Callback {
+public class RandomPhotoActivity extends WithProgressBarActivity implements RandomPhotoView,Callback {
 
     private ImageView userPhoto;
     private TextView userName;

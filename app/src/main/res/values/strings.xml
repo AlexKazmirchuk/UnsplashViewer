@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">PictureViewer</string>
+    <string name="app_name">&#160;&#160;PictureViewer</string>
+    <string name="auth_activity_label">&#160;&#160;Authorization</string>
+    <string name="random_photo">&#160;&#160;Random photo</string>
+    <string name="about_user">&#160;&#160;About user</string>
     <string name="new_">New</string>
     <string name="old">Old</string>
     <string name="popular">Popular</string>
@@ -9,10 +12,8 @@
     <string name="bio">Bio:</string>
     <string name="location">Location:</string>
     <string name="portfolio">Portfolio:</string>
-    <string name="auth_activity_label">Authorization</string>
     <string name="fb_auth_not_supported_message">Login with facebook not supported yet</string>
     <string name="no_connection_message">No internet!</string>
     <string name="refresh">Refresh</string>
-    <string name="random_photo">Random photo</string>
     <string name="next_photo">Next photo</string>
 </resources>

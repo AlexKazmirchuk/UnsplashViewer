@@ -16,7 +16,7 @@ import com.alexkaz.pictureviewer.presenter.impl.AuthPresenterImpl;
 import com.alexkaz.pictureviewer.utills.Constants;
 import com.alexkaz.pictureviewer.view.api.AuthView;
 
-public class AuthActivity extends BaseActivity implements AuthView {
+public class AuthActivity extends WithRefreshIconAnimActivity implements AuthView {
 
     public static final String FORGOT_PASS_URL = "https://unsplash.com/users/password/new";
     public static final String JOIN_URL = "https://unsplash.com/join";
