@@ -1,8 +1,13 @@
-# A simple android client for unsplash.com
+# Completed Assessment Test for Teamvoy
 
-### Summary of app
+## Description
 
-This is a simple android app for viewing thousands photos in high resolution.
+Create your app with next functionality:
+* As a user I can view list of photos with info about their owners and amount of likes
+* As a user I can sort this list of photos by latest, oldest, popular
+* As a user I can like/unlike photo
+* As a user I can view a random photo
+Fetch all necessary info from the remote server by the url: https://unsplash.com/developers
 
 ### Screenshots
 
